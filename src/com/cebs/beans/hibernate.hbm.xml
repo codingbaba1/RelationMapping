@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class name="com.cebs.beans.Person">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<property name="name"></property>
+		<array name="docs" cascade="all">
+			<key column="personid"></key>
+			<index column="sno" type="int"></index>
+			<one-to-many class="com.cebs.beans.IDProof"/>
+		</array>
+	</class>
+	<class name="com.cebs.beans.IDProof">
+		<id name="no">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="type"></property>
+	</class>
+
+	<class name="com.cebs.beans.Category">
+		<id name="id">
+			<generator class="native"></generator>
+		</id>
+		<one-to-one name="store" class="com.cebs.beans.Store" cascade="save-update"></one-to-one>
+		<property name="name"></property>
+		<array name="products" table="Products">
+			<key column="categoryId"></key>
+			<index column="sno" type="int" ></index>
+			<element column="ProductName" type="string"></element>
+		</array>		
+		</class>
+	<class name="com.cebs.beans.Store">
+		<id name="storeId">
+			<generator class="native"></generator>
+		</id>
+		<property name="storeName"></property>
+	</class>
+</hibernate-mapping>
